@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 form</title>
+</head>
+<style>
+    .layout{
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+    .layout label{
+
+
+    }
+    .layout input{
+        width: 50%;
+        box-sizing: border-box;
+    }
+
+</style>
+<body>
+    <div class="layout">
+        <form action="/admin/item/new" method="post" enctype="multipart/form-data">
+            <label>ItemName : </label>
+            <input name="itemName" type="text">
+            <label>ItemPrice : </label>
+            <input name="itemPrice" type="number">
+            <label>stockNumber : </label>
+            <input name="stockNumber" type="number">
+            <label>ItemDetails : </label>
+            <input name="itemDetails" type="text">
+            <button type="submit">제출하기</button>
+        </form>
+    </div>
+</body>
+</html>
