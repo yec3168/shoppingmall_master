@@ -1,4 +1,4 @@
-# Project Settinsg  
+# Project Settings
 
 IDE : Intellij
 Springboot : 3.2.0
