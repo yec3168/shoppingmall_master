@@ -1,6 +1,6 @@
-package com.practice.item.repository;
+package com.practice.shoppingmall.item.repository;
 
-import com.practice.item.entity.Item;
+import com.practice.shoppingmall.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,11 +1,9 @@
-package com.practice.item.service;
+package com.practice.shoppingmall.item.service;
 
-import com.practice.item.entity.Item;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.practice.shoppingmall.item.entity.ItemDto;
 
 
 public interface ItemService {
 
-    String register(Item item);
+    void register(ItemDto itemDto);
 }

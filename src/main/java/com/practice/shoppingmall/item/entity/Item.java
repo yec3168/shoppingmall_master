@@ -1,4 +1,4 @@
-package com.practice.item.entity;
+package com.practice.shoppingmall.item.entity;
 
 
 import jakarta.persistence.*;
