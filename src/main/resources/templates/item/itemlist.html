@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>아이템 view</title>
+    <title>아이템 list</title>
 
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -24,18 +24,27 @@
         margin-left: 15%;
         margin-right: 15%;
     }
-    .content
+
 
 </style>
 <body>
 <div th:replace="/fragments/header"></div>
 
 <div class="content">
-    <h3 th:text="${item.itemName}"></h3>
-    <h3 th:text="${item.itemPrice}"></h3>
-    <h3 th:text="${item.stockNumber}"></h3>
-    <h3 th:text="${item.itemDetails}"></h3>
-    <h3 th:text="${item.itemSellStatus}"></h3>
+    <table>
+        <thead>
+            <tr>이름</tr>
+            <tr>가격</tr>
+            <tr>Details</tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${itemList}">
+                <td><a  th:text="${item.itemName}" th:href="@{/admin/items(${item.itemId})}"></a></td>
+                <td th:text="${item.itemPrice}"></td>
+                <td th:text="${item.itemDetails}"></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <div th:replace="/fragments/footer"></div>

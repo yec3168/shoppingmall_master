@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,9 +36,25 @@ public class ItemController {
         return "item/itemmsg";
     }
 
-
+    // items 상품조회.
     @GetMapping("/items")
-    public String adminItem(){
+    public String adminItem(Model model){
+        model.addAttribute("itemList", itemService.findAllList());
+        return "item/itemlist";
+    }
+
+
+    // itemId로 상품 조회시.
+    @GetMapping("/items/{itemId}")
+    public String adminItemItemId(@PathVariable(name="itemId") Long itemId, Model model){
+        model.addAttribute("item", itemService.itemView(itemId));
         return "item/itemview";
     }
+
+
+
+
+
+
+
 }

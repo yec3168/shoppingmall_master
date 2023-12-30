@@ -1,11 +1,14 @@
 package com.practice.shoppingmall.item.service;
 
 
+import com.practice.shoppingmall.item.entity.Item;
 import com.practice.shoppingmall.item.entity.ItemDto;
 import com.practice.shoppingmall.item.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -19,5 +22,15 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public void register(ItemDto itemDto) {
         itemRepository.save(itemDto.toEntity());
+    }
+
+    @Override
+    public Item itemView(Long itemid) {
+        return itemRepository.findById(itemid).get();
+    }
+
+    @Override
+    public List<Item> findAllList() {
+        return  itemRepository.findAll();
     }
 }
