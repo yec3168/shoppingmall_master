@@ -23,9 +23,14 @@ public class ItemImg {
 
     private String defaultImg; // defaultImg
 
-    @OneToOne
+    @ManyToOne  //하나의 상품에는 여러 이미지가 존재.
     @JoinColumn(name = "item_id")
     private Item itemId;
 
-
+    // 이미지 바꿀시, 해당 메서드를 호출(이름, 원본이름, 경로 수정)
+    public void updateImg(String imgName, String originFileName, String imgUrl){
+        this.imgName = imgName;
+        this.originFileName = originFileName;
+        this.imgUrl = imgUrl;
+    }
 }

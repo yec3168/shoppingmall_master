@@ -21,8 +21,8 @@
 
 </style>
 <body>
-    <div class="layout">
-        <form action="/admin/item/new" method="post" enctype="multipart/form-data">
+    <div class="layout" th:object="${itemDto}">
+        <form action="/admin/item/new" method="post" enctype="multipart/form-data" th:object="${itemDto}">
             <label>ItemName : </label>
             <input name="itemName" type="text">
             <label>ItemPrice : </label>

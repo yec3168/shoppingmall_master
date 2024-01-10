@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@Table(name="item")
 @Entity
 @Getter
 @Setter
@@ -29,6 +31,7 @@ public class Item {
     @Column(nullable = false)
     private int stockNumber; //재고수량
 
+    @Lob //가변 길이를 갖는 큰 데이터를 저장.
     @Column(length = 200)
     private String itemDetails; //상세 설명
 
@@ -38,6 +41,10 @@ public class Item {
 
     // 상품 등록 시간
     private LocalDateTime localDateTime;
+
+    // 상품 수정 시간
+    private LocalDateTime updateTime;
+
 
 }
 

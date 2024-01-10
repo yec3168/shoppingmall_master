@@ -21,7 +21,8 @@ public class ItemController {
 
     // 상품 등록 페이지 load
     @GetMapping("/item/new")
-    public String adminItemNewGet(){
+    public String adminItemNewGet(Model model){
+        model.addAttribute("itemDto", new ItemDto());
         return "item/itemform";
     }
 
