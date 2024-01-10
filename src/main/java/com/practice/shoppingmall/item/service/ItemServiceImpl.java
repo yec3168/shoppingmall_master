@@ -6,12 +6,13 @@ import com.practice.shoppingmall.item.entity.ItemDto;
 import com.practice.shoppingmall.item.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-@Service
+@Repository
 @RequiredArgsConstructor //생성자 자동 생성.
 public class ItemServiceImpl implements ItemService{
 

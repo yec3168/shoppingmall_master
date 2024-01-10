@@ -21,14 +21,14 @@ public class ItemDto {
 
     @NotBlank(message = "재고수량은 필수 입력 값입니다.")
     private int stockNumber; //재고수량
-    
-    
+
     private String itemDetails; //상세 설명
-    private ItemSellStatus itemSellStatus; //상품 판매 상태.
 
-    private List<ItemImgDto> itemImgDtoList = new ArrayList<>();
+    private String sellStatcd;
 
-    private List<Long> itemImgIds = new ArrayList<>();
+    private LocalDateTime regTime;
+
+    private LocalDateTime updateTime;
 
     // toEntity로 레포지토리 dto를 통해 등록
     public Item toEntity(){
