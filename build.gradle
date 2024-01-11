@@ -39,6 +39,9 @@ dependencies {
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     // Querydsl 추가 시작
     //implementation 'com.querydsl:querydsl-jpa'
+
+    //security
+    implementation "org.springframework.boot:spring-boot-starter-security"
 }
 
 tasks.named('test') {

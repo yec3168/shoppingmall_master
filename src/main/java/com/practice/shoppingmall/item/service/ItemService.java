@@ -10,7 +10,6 @@ public interface ItemService {
 
     void register(ItemDto itemDto);
 
-
     Item itemView(Long itemid);
 
     List<Item> findAllList();
