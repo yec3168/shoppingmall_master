@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/mainlayout}">
+
+<!--css 추가-->
+<th:block layout:fragment="css">
+    <style>
+        .error{
+            color: lightgrey;
+        }
+    </style>
+</th:block>
+
+
+</th:block>
+<div layout:fragment="content">
+    <h1 style="text-align: center">로그인</h1>
+    <form role="form" method="post" action="/member/login">
+        <div class="form-group">
+            <label th:for="email">이메일</label>
+            <input type="email" name="email" class="form-control" placeholder="이메일을 입력해주세요">
+        </div>
+
+        <div class="form-group">
+            <label th:for="password">비밀번호</label>
+            <input type="password" name="password" class="form-control" placeholder="비밀번호를 입력해주세요">
+        </div>
+        <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
+        <div style="text-align: center">
+            <button type="submit" class="btn btn-primary" style="">로그인</button>
+            <button class="btn btn-primary" onclick="location.href='/member/new'">회원가입</button>
+        </div>
+    </form>
+
+</div>
+
+</html>
