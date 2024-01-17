@@ -48,7 +48,7 @@ public class SecurityConfig {
                //ADMIN일 경우 접근이 가능하다.
                .requestMatchers("/admin/**").hasRole("ADMIN")
                //나머지 경로는 인증을 요구하도록 함.
-               .anyRequest().authenticated()
+               .anyRequest().permitAll()
        );
 
        // 인증되지 않은 사용자가 리소스에 접근시 수행되는 핸들러를 등록합니다.
