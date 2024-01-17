@@ -28,9 +28,11 @@
         </div>
         <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
         <div style="text-align: center">
-            <button type="submit" class="btn btn-primary" style="">로그인</button>
-            <button class="btn btn-primary" onclick="location.href='/member/new'">회원가입</button>
+            <button class="btn btn-primary" style="">로그인</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='/member/new'">회원가입</button>
         </div>
+
+
     </form>
 
 </div>

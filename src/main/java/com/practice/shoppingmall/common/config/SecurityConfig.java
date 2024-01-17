@@ -4,9 +4,11 @@ import com.practice.shoppingmall.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -28,30 +30,44 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//        http
-//                .authorizeHttpRequests((auth) -> auth
-//                        .anyRequest().authenticated())
-//                .httpBasic(Customizer.withDefaults());
         http.formLogin(form -> form
-                .loginPage("/member/lgoin")
+                .loginPage("/member/login")
                 .defaultSuccessUrl("/") //로그인 성공시
                 .usernameParameter("email") // 로그인시 사용할 파라미터 email로 설정.
                 .failureUrl("/member/login/error")
-                );
+
+        );
         http.logout(form -> form
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                 .logoutSuccessUrl("/"));
 
-        http.csrf(AbstractHttpConfigurer::disable);
+
+       http.authorizeHttpRequests(auth -> auth
+               // 로그인을 하지 않아도 이용가능하다.
+               .requestMatchers("/", "/member/**", "/item/**", "/images/**", "/css/**").permitAll()
+               //ADMIN일 경우 접근이 가능하다.
+               .requestMatchers("/admin/**").hasRole("ADMIN")
+               //나머지 경로는 인증을 요구하도록 함.
+               .anyRequest().authenticated()
+       );
+
+       // 인증되지 않은 사용자가 리소스에 접근시 수행되는 핸들러를 등록합니다.
+       http.exceptionHandling(auth-> auth
+               .authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
+
+
 
         return http.build();
     }
 
-    public WebSecurityCustomizer webSecurityCustomizer(AuthenticationManagerBuilder auth) throws Exception{
-        return (web)->{
-
-        };
+    AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception{
+        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
+        return auth.build();
     }
 
 
+    // 하위 파일은 인증을 무시하도록 설정
+    public WebSecurityCustomizer webSecurityCustomizer(){
+        return (web)-> web.ignoring().requestMatchers("/css/**", "/js/**", "/img/**");
+    }
 }
