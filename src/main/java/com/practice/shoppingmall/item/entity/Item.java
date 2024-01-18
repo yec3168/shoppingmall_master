@@ -1,6 +1,7 @@
 package com.practice.shoppingmall.item.entity;
 
 
+import com.practice.shoppingmall.common.entity.BaseEntity;
 import com.practice.shoppingmall.common.status.ItemSellStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-public class Item {
+public class Item extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +24,10 @@ public class Item {
     private Long itemId;
 
     @Column(length = 30, nullable = false)
-    private String itemName;
+    private String name;
 
     @Column(nullable = false)
-    private int itemPrice;
+    private int price;
 
     @Column(nullable = false)
     private int stockNumber; //재고수량
@@ -39,11 +40,6 @@ public class Item {
     @Enumerated(EnumType.STRING) // 반환시 String으로 반환.
     private ItemSellStatus itemSellStatus;
 
-    // 상품 등록 시간
-    private LocalDateTime localDateTime;
-
-    // 상품 수정 시간
-    private LocalDateTime updateTime;
 
 
 }

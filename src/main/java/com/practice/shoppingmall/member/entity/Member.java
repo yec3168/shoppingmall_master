@@ -1,5 +1,6 @@
 package com.practice.shoppingmall.member.entity;
 
+import com.practice.shoppingmall.common.entity.BaseEntity;
 import com.practice.shoppingmall.common.status.RoleStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @Column(name = "member_id")
@@ -43,7 +44,7 @@ public class Member {
         // 스프링 시큐리티 설정 클래스에 등록한 BCryptPasswordEncoder Bean을
         // 파라미터로 넘겨서 비밀번호 암호화
         member.setPassword(password);
-        member.setRoleStatus(RoleStatus.ADMIN);
+        member.setRoleStatus(RoleStatus.USER);
         return member;
     }
 }

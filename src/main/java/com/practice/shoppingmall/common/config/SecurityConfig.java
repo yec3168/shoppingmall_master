@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -46,16 +44,16 @@ public class SecurityConfig {
                // 로그인을 하지 않아도 이용가능하다.
                .requestMatchers("/", "/member/**", "/item/**", "/images/**", "/css/**").permitAll()
                //ADMIN일 경우 접근이 가능하다.
-               .requestMatchers("/admin/**").hasRole("ADMIN")
+               .requestMatchers("/admin/item/new").hasRole("ADMIN")
                //나머지 경로는 인증을 요구하도록 함.
-               .anyRequest().permitAll()
+               .anyRequest().authenticated()
        );
 
        // 인증되지 않은 사용자가 리소스에 접근시 수행되는 핸들러를 등록합니다.
        http.exceptionHandling(auth-> auth
                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
 
-
+       http.csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }

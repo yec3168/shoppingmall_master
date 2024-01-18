@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long>{
-    List<Item> findByItemName(String itemName);
+    List<Item> findByName(String itemName);
 
-    List<Item> findByItemNameOrItemDetails(String itemName, String itemDetails);
+    List<Item> findByNameOrItemDetails(String Name, String itemDetails);
 
-    @Query("SELECT i from Item i where i.itemDetails like %:itemDetails% order by  i.itemPrice desc ")
+    @Query("SELECT i from Item i where i.itemDetails like %:itemDetails% order by  i.price desc ")
     List<Item> findByItemDetails(@Param("itemDetails") String itemDetials);
 }
