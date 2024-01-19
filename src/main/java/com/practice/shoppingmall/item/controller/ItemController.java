@@ -1,60 +1,56 @@
 package com.practice.shoppingmall.item.controller;
 
 import com.practice.shoppingmall.item.entity.ItemDto;
+import com.practice.shoppingmall.item.entity.ItemFormDto;
+import com.practice.shoppingmall.item.service.ItemService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 @Controller
 public class ItemController {
 
-//    @Autowired
-//    private final ItemService itemService;
+   @Autowired
+    private final ItemService itemService;
 
-    // 상품 등록 페이지 load
     @GetMapping("/item/new")
-    public String adminItemNewGet(Model model){
-        model.addAttribute("itemDto", new ItemDto());
+    public String itemForm(Model model){
+        model.addAttribute("itemFormDto", new ItemFormDto());
         return "item/itemform";
     }
 
-//    // 상품 등록 페이지 post
-//    @PostMapping("/item/new")
-//    public String adminItemNewPost(ItemDto itemDto, Model model) throws Exception{
-//
-//        model.addAttribute("message", "상품이 등록되었습니다.");
-//        model.addAttribute("searchUrl", "/");
-//
-//        itemService.register(itemDto);
-//        return "item/itemmsg";
-//    }
-//
-//    // items 상품조회.
-//    @GetMapping("/items")
-//    public String adminItem(Model model){
-//        model.addAttribute("itemList", itemService.findAllList());
-//        return "item/itemlist";
-//    }
-//
-//
-//    // itemId로 상품 조회시.
-//    @GetMapping("/items/{itemId}")
-//    public String adminItemItemId(@PathVariable(name="itemId") Long itemId, Model model){
-//        model.addAttribute("item", itemService.itemView(itemId));
-//        return "item/itemview";
-//    }
+    @PostMapping("/item/new")
+    public String itemNew(@Valid ItemFormDto itemFormDto,
+                          BindingResult bindingResult, Model model,
+                          @RequestParam("itemImgFile")List<MultipartFile> itemImgFileList){
 
+        if(bindingResult.hasErrors()){
+            return "item/itemform";
+        }
 
+        //이미지가 없거나, 아이디가 null값이면
+        if(itemImgFileList.get(0).isEmpty() && itemFormDto.getItemId() ==null){
+            model.addAttribute("errorMessage", "첫번째 상품이미지는 필수 입력값입니다.");
+            return "item/itemform";
+        }
 
-
-
-
+        try{
+            itemService.saveItem(itemFormDto, itemImgFileList);
+        }catch (Exception e){
+            model.addAttribute("errorMessage", "상품등록 중 에러가 발생하였습니다.");
+            return "item/itemform";
+        }
+        return "redirect:/";
+    }
 
 }

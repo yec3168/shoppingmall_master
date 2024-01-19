@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Builder
 public class Item extends BaseEntity {
 
     @Id
