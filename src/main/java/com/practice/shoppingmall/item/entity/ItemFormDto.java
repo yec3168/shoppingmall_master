@@ -3,6 +3,7 @@ package com.practice.shoppingmall.item.entity;
 import com.practice.shoppingmall.common.status.ItemSellStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
@@ -18,10 +19,10 @@ public class ItemFormDto {
     @NotBlank(message = "상품명은 필수 입력 값입니다.")
     private String name;
 
-    @NotBlank(message = "가격은 필수 입력 값입니다.")
+    @NotNull(message = "가격은 필수 입력 값입니다.")
     private int price;
 
-    @NotBlank(message = "재고수량은 필수 입력 값입니다.")
+    @NotNull(message = "재고수량은 필수 입력 값입니다.")
     private int stockNumber; //재고수량
 
     @NotEmpty(message = "상품설명은 필수 입력 값입니다.")

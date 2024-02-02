@@ -17,7 +17,7 @@
 
     <script th:inline="javascript">
         $(document).ready(function(){
-            var errorMessage = [[${errorMessage}]];
+            let errorMessage = [[${errorMessage}]];
             if(errorMessage != null){
                 alert(errorMessage);
             }
@@ -28,7 +28,7 @@
 
 <div layout:fragment="content">
 
-    <form action="/member/new" role="form" method="post"  th:object="${memberFormDto}">
+    <form action="/members/new" role="form" method="post"  th:object="${memberFormDto}">
         <div class="form-group">
             <label th:for="name">이름</label>
             <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력해주세요">

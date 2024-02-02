@@ -29,20 +29,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.formLogin(form -> form
-                .loginPage("/member/login")
+                .loginPage("/members/login")
                 .defaultSuccessUrl("/") //로그인 성공시
                 .usernameParameter("email") // 로그인시 사용할 파라미터 email로 설정.
-                .failureUrl("/member/login/error")
+                .failureUrl("/members/login/error")
 
         );
         http.logout(form -> form
-                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
                 .logoutSuccessUrl("/"));
 
 
        http.authorizeHttpRequests(auth -> auth
                // 로그인을 하지 않아도 이용가능하다.
-               .requestMatchers("/", "/member/**", "/item/**", "/images/**", "/css/**").permitAll()
+               .requestMatchers("/", "/members/**", "/item/**", "/images/**", "/css/**").permitAll()
                //ADMIN일 경우 접근이 가능하다.
                .requestMatchers("/admin/item/new").hasRole("ADMIN")
                //나머지 경로는 인증을 요구하도록 함.
